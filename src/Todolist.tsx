@@ -42,27 +42,12 @@ export const Todolist = (props: PropsType) => {
                 {props.tasks.map((task, index) => {
                     return (
                         <li key={index}><input type="checkbox"
-                                                 checked={task.isDone}
+                                               checked={task.isDone}
                         />
                             <span>{task.taskTitle}</span>
                         </li>
                     )
                 })}
-                {/*<li><input type="checkbox"*/}
-                {/*           checked={props.tasks[0].isDone}*/}
-                {/*/>*/}
-                {/*    <span>{props.tasks[0].taskTitle}</span>*/}
-                {/*</li>*/}
-                {/*<li><input type="checkbox"*/}
-                {/*           checked={props.tasks[1].isDone}*/}
-                {/*/>*/}
-                {/*    <span>{props.tasks[1].taskTitle}</span>*/}
-                {/*</li>*/}
-                {/*<li><input type="checkbox"*/}
-                {/*           checked={props.tasks[2].isDone}*/}
-                {/*/>*/}
-                {/*    <span>{props.tasks[2].taskTitle}</span>*/}
-                {/*</li>*/}
             </ul>
             <div>
                 <button onClick={() => onChangeFilter('All')}>All</button>
