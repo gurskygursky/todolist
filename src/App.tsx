@@ -5,19 +5,21 @@ import {Todolist} from './Todolist';
 export const App = () => {
 
     const tasks1 = [
-        { id: 1, title: "HTML&CSS", isDone: true },
-        { id: 2, title: "JS", isDone: true },
-        { id: 3, title: "ReactJS", isDone: false },
+        { id: 1, taskTitle: "HTML&CSS", isDone: true },
+        { id: 2, taskTitle: "JS", isDone: true },
+        { id: 3, taskTitle: "ReactJS", isDone: false },
+        { id: 4, taskTitle: "NodeJS", isDone: false },
     ];
     const tasks2 = [
-        { id: 1, title: "Hello world", isDone: true },
-        { id: 2, title: "I am Happy", isDone: false },
-        { id: 3, title: "Yo", isDone: false },
+        { id: 1, taskTitle: "Hello world", isDone: true },
+        { id: 2, taskTitle: "I am Happy", isDone: false },
+        { id: 3, taskTitle: "Yo", isDone: false },
     ];
 
     return (
         <div className="App">
-            <Todolist/>
+            <Todolist tasks={tasks1} todolistTitle={'What to learn'}/>
+            <Todolist tasks={tasks2} todolistTitle={'What to'}/>
         </div>
     );
 }
