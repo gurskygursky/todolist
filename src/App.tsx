@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {TaskFilterType, TaskType, Todolist} from './Todolist';
+import {v1} from "uuid";
 
 export const App = () => {
 
@@ -17,10 +18,10 @@ export const App = () => {
     // ];
 
     let [tasks, setTasks] = useState<TaskType[]>([
-            {id: 1, taskTitle: "HTML&CSS", isDone: true},
-            {id: 2, taskTitle: "JS", isDone: true},
-            {id: 3, taskTitle: "ReactJS", isDone: false},
-            {id: 4, taskTitle: "NodeJS", isDone: false},
+            {id: v1(), taskTitle: "HTML&CSS", isDone: true},
+            {id: v1(), taskTitle: "JS", isDone: true},
+            {id: v1(), taskTitle: "ReactJS", isDone: false},
+            {id: v1(), taskTitle: "NodeJS", isDone: false},
         ],
     );
     let [filter, setFilterTasks] = useState<TaskFilterType>('All');
@@ -38,12 +39,17 @@ export const App = () => {
         setFilterTasks(taskFilterValue);
     }
 
+    const addTask = (newTaskTitle: string) => {
+        const newTask = {id: v1(), taskTitle: newTaskTitle, isDone: false}
+        setTasks([newTask, ...tasks]);
+    }
 
     return (
         <div className="App">
             <Todolist tasks={filteredTasks}
                       todolistTitle={'What to learn'}
                       changeFilterTask={changeFilterTask}
+                      addTask={addTask}
             />
             {/*<Todolist tasks={tasks2} todolistTitle={'What to'}/>*/}
         </div>
