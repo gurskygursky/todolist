@@ -12,6 +12,7 @@ type PropsType = {
     todolistTitle: string;
     tasks: TaskType[];
     addTask: (title: string) => void;
+    removeTask: (taskID: string) => void;
     changeFilterTask: (taskFilterValue: TaskFilterType) => void;
 }
 
@@ -30,6 +31,9 @@ export const Todolist = (props: PropsType) => {
     const addTask = (newTaskTitle: string) => {
         props.addTask(newTaskTitle);
     }
+    const removeTask = (taskID: string) => {
+        props.removeTask(taskID);
+    }
 
     return (
         <div>
@@ -44,6 +48,7 @@ export const Todolist = (props: PropsType) => {
                         <li key={index}><input type="checkbox"
                                                checked={task.isDone}
                         />
+                            <button onClick={() => {removeTask(task.id)}}>x</button>
                             <span>{task.taskTitle}</span>
                         </li>
                     )

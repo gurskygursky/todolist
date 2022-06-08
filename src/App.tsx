@@ -32,12 +32,18 @@ export const App = () => {
         setTasks([newTask, ...tasks]);
     }
 
+    const removeTask = (taskID: string) => {
+        const afterRemove = tasks.filter((task) => task.id !== taskID);
+        setTasks(afterRemove);
+    }
+
     return (
         <div className="App">
             <Todolist tasks={filteredTasks}
                       todolistTitle={'What to learn'}
                       changeFilterTask={changeFilterTask}
                       addTask={addTask}
+                      removeTask={removeTask}
             />
         </div>
     );
