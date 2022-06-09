@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, KeyboardEvent} from 'react';
 import {ChangeEvent} from "react";
 
 export type TaskType = {
@@ -18,18 +18,24 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
 
-    let [title, setTitle] = useState<string>('');
+    let [title, setTitle] = useState('');
 
     const onChangeFilter = (taskFilterValue: TaskFilterType) => {
         props.changeFilterTask(taskFilterValue);
     }
 
     const onChangeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        const inputValue = event.currentTarget.value;
-        setTitle(inputValue);
+        setTitle(event.currentTarget.value);
     }
-    const addTask = (newTaskTitle: string) => {
-        props.addTask(newTaskTitle);
+    const addTask = () => {
+        props.addTask(title);
+        setTitle('');
+    }
+    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            addTask();
+            setTitle('');
+        }
     }
     const removeTask = (taskID: string) => {
         props.removeTask(taskID);
@@ -39,8 +45,8 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.todolistTitle}</h3>
             <div>
-                <input type={"text"} onChange={onChangeInputValueHandler}/>
-                <button onClick={() => addTask(title)}>+</button>
+                <input type={"text"} value={title} onChange={onChangeInputValueHandler} onKeyDown={onKeyPressHandler}/>
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {props.tasks.map((task, index) => {

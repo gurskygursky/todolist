@@ -27,9 +27,10 @@ export const App = () => {
         setFilterTasks(taskFilterValue);
     }
 
-    const addTask = (newTaskTitle: string) => {
-        const newTask = {id: v1(), taskTitle: newTaskTitle, isDone: false}
-        setTasks([newTask, ...tasks]);
+    const addTask = (taskTitle: string) => {
+        const task = {id: v1(), taskTitle: taskTitle, isDone: false};
+        const newTask = [task, ...tasks];
+        setTasks(newTask);
     }
 
     const removeTask = (taskID: string) => {
