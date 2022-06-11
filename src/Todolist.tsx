@@ -1,5 +1,6 @@
 import React, {useState, KeyboardEvent} from 'react';
 import {ChangeEvent} from "react";
+import {FullInput} from "./components/FullInput";
 
 export type TaskType = {
     id: string;
@@ -20,25 +21,25 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
 
-    let [title, setTitle] = useState('');
+    // let [title, setTitle] = useState('');
 
     const onChangeFilter = (taskFilterValue: TaskFilterType) => {
         props.changeFilterTask(taskFilterValue);
     }
 
-    const onChangeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value);
-    }
-    const addTask = () => {
+    // const onChangeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setTitle(event.currentTarget.value);
+    // }
+    const addTask = (title: string) => {
         props.addTask(title);
-        setTitle('');
+        // setTitle('');
     }
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            addTask();
-            setTitle('');
-        }
-    }
+    // const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    //     if (event.key === 'Enter') {
+    //         addTask();
+    //         setTitle('');
+    //     }
+    // }
     const removeTask = (taskID: string) => {
         props.removeTask(taskID);
     }
@@ -49,10 +50,11 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>{props.todolistTitle}</h3>
-            <div>
-                <input type={"text"} value={title} onChange={onChangeInputValueHandler} onKeyDown={onKeyPressHandler}/>
-                <button onClick={addTask}>+</button>
-            </div>
+            <FullInput addTask={addTask}/>
+            {/*<div>*/}
+            {/*    <input type={"text"} value={title} onChange={onChangeInputValueHandler} onKeyDown={onKeyPressHandler}/>*/}
+            {/*    <button onClick={addTask}>+</button>*/}
+            {/*</div>*/}
             <ul>
                 {props.tasks.map((task, index) => {
 
