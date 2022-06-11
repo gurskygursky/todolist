@@ -41,7 +41,7 @@ export const App = () => {
         const task = tasks.find((task) => task.id === taskID);
         if (task) {
             task.isDone = isDone;
-            setTasks([...tasks])
+            setTasks([...tasks]);
         }
     }
 

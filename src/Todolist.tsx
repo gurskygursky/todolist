@@ -22,25 +22,15 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
 
-    let [title, setTitle] = useState('');
+    let [inputValue, setInputValue] = useState('');
 
     const onChangeFilter = (taskFilterValue: TaskFilterType) => {
         props.changeFilterTask(taskFilterValue);
     }
-
-    // const onChangeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setTitle(event.currentTarget.value);
-    // }
     const addTask = (title: string) => {
         props.addTask(title);
-        setTitle('');
+        setInputValue('');
     }
-    // const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    //     if (event.key === 'Enter') {
-    //         addTask();
-    //         setTitle('');
-    //     }
-    // }
     const removeTask = (taskID: string) => {
         props.removeTask(taskID);
     }
@@ -52,14 +42,15 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.todolistTitle}</h3>
             <div>
-                <Input title={title} setTitle={setTitle} addTask={addTask}/>
-                <Button buttonTitle={'+'} callback={() => addTask(title)}/>
+                <Input inputValue={inputValue}
+                       onChangeInputValue={setInputValue}
+                       addTask={addTask}
+                />
+                <Button buttonTitle={'+'}
+                        callback={() => addTask(inputValue)}
+                />
             </div>
-            {/*<FullInput addTask={addTask}/>*/}
-            {/*<div>*/}
-            {/*    <input type={"text"} value={title} onChange={onChangeInputValueHandler} onKeyDown={onKeyPressHandler}/>*/}
-            {/*    <button onClick={addTask}>+</button>*/}
-            {/*</div>*/}
+
             <ul>
                 {props.tasks.map((task, index) => {
 
@@ -83,5 +74,5 @@ export const Todolist = (props: PropsType) => {
                 <button onClick={() => onChangeFilter('Completed')}>Completed</button>
             </div>
         </div>
-    )
+    );
 }
