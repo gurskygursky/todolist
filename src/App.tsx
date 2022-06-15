@@ -39,11 +39,6 @@ export const App = () => {
     }
     const changeTaskStatus = (taskID: string, isDone: boolean) => {
         setTasks(tasks.map((task) => task.id === taskID ? {...task, isDone} : task));
-        // const task = tasks.find((task) => task.id === taskID);
-        // if (task) {
-        //     task.isDone = isDone;
-        //     setTasks([...tasks]);
-        // }
     }
 
     return (

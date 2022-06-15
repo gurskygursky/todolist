@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import styles from "../Todolist.module.css";
+
 type InputPropsType = {
     inputValue: string;
     onChangeInputValue: (inputValue: string) => void;

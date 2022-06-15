@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {ChangeEvent} from "react";
 import {Button} from "./components/Button";
 import {Input} from "./components/Input";
 import {Checkbox} from "./components/Checkbox";
@@ -52,15 +51,11 @@ export const Todolist = (props: PropsType) => {
         props.changeTaskStatus(taskID, isDone)
     }
 
-    // const onChangeTaskStatuses = (taskID: string, isDone: boolean) => {
-    //     props.changeTaskStatus(taskID, isDone);
-    // }
-
     return (
         <div>
             <h3>{props.todolistTitle}</h3>
             <span className={styles.errorMessage}>{error}</span>
-            <div>
+            <div className={styles.btn}>
                 <Input inputValue={inputValue}
                        onChangeInputValue={setInputValue}
                        addTask={addTask}
@@ -74,16 +69,8 @@ export const Todolist = (props: PropsType) => {
 
             <ul>
                 {props.tasks.map((task, index) => {
-
                     return (
                         <li key={index} className={task.isDone ? styles.isDone : ''}>
-                            {/*<Checkbox checked={task.isDone}*/}
-                            {/*          callback={(isDone) => onCheckboxHandler(task.id, isDone)}*/}
-                            {/*/>*/}
-                            {/*<input type="checkbox"*/}
-                            {/*       checked={task.isDone}*/}
-                            {/*       onChange={(event: ChangeEvent<HTMLInputElement>) => onCheckboxHandler(task.id, event.currentTarget.checked)}*/}
-                            {/*/>*/}
                             <div className={styles.btn}>
                                 <Checkbox checked={task.isDone}
                                           className={styles.btn}
@@ -92,8 +79,6 @@ export const Todolist = (props: PropsType) => {
                                 <Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>
                                 <span>{task.taskTitle}</span>
                             </div>
-
-                            {/*<button onClick={() => {removeTask(task.id)}}>x</button>*/}
                         </li>
                     )
                 })}
@@ -102,22 +87,12 @@ export const Todolist = (props: PropsType) => {
                 <Button buttonTitle={Filter.All}
                         callback={() => onChangeFilter(Filter.All)}
                         className={props.taskFilter === Filter.All ? styles.activeFilter : ''}/>
-                {/*<button className={props.taskFilter === 'All' ? styles.activeFilter : ''}*/}
-                {/*        onClick={() => onChangeFilter('All')}>All</button>*/}
                 <Button buttonTitle={Filter.Active}
-                        callback={() => {
-                            onChangeFilter(Filter.Active)
-                        }}
+                        callback={() => {onChangeFilter(Filter.Active)}}
                         className={props.taskFilter === Filter.Active ? styles.activeFilter : ''}/>
-                {/*<button className={props.taskFilter === 'Active'  ? styles.activeFilter : ''}*/}
-                {/*        onClick={() => onChangeFilter('Active')}>Active</button>*/}
                 <Button buttonTitle={Filter.Completed}
-                        callback={() => {
-                            onChangeFilter(Filter.Completed)
-                        }}
+                        callback={() => {onChangeFilter(Filter.Completed)}}
                         className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>
-                {/*<button className={props.taskFilter === 'Completed'  ? styles.activeFilter : ''}*/}
-                {/*        onClick={() => onChangeFilter('Completed')}>Completed</button>*/}
             </div>
         </div>
     );
