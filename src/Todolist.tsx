@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {ChangeEvent} from "react";
 import {Button} from "./components/Button";
 import {Input} from "./components/Input";
+import {Checkbox} from "./components/Checkbox";
 
 export type TaskType = {
     id: string;
@@ -35,8 +36,12 @@ export const Todolist = (props: PropsType) => {
         props.removeTask(taskID);
     }
     const onCheckboxHandler = (taskID: string, isDone: boolean) => {
-        props.changeTaskStatus(taskID, isDone);
+        props.changeTaskStatus(taskID, isDone)
     }
+
+    // const onChangeTaskStatuses = (taskID: string, isDone: boolean) => {
+    //     props.changeTaskStatus(taskID, isDone);
+    // }
 
     return (
         <div>
@@ -55,10 +60,14 @@ export const Todolist = (props: PropsType) => {
                 {props.tasks.map((task, index) => {
 
                     return (
-                        <li key={index}><input type="checkbox"
-                                               checked={task.isDone}
-                                               onChange={(event: ChangeEvent<HTMLInputElement>) => onCheckboxHandler(task.id, event.currentTarget.checked)}
-                        />
+                        <li key={index}>
+                            <Checkbox checked={task.isDone}
+                                      callback={(isDone) => onCheckboxHandler(task.id, isDone)}
+                            />
+                            {/*<input type="checkbox"*/}
+                            {/*       checked={task.isDone}*/}
+                            {/*       onChange={(event: ChangeEvent<HTMLInputElement>) => onCheckboxHandler(task.id, event.currentTarget.checked)}*/}
+                            {/*/>*/}
                             <button onClick={() => {
                                 removeTask(task.id)
                             }}>x
