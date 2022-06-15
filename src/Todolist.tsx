@@ -3,6 +3,7 @@ import {ChangeEvent} from "react";
 import {Button} from "./components/Button";
 import {Input} from "./components/Input";
 import {Checkbox} from "./components/Checkbox";
+import styles from "./Todolist.module.css";
 
 export type TaskType = {
     id: string;
@@ -24,13 +25,19 @@ type PropsType = {
 export const Todolist = (props: PropsType) => {
 
     let [inputValue, setInputValue] = useState('');
+    let [error, setError] = useState<string | null>(null);
 
     const onChangeFilter = (taskFilterValue: TaskFilterType) => {
         props.changeFilterTask(taskFilterValue);
     }
     const addTask = (title: string) => {
-        props.addTask(title);
+        if (title.trim() !== '') {
+            props.addTask(title.trim());
+        }
         setInputValue('');
+        if (!title) {
+            setError('Title is required!');
+        }
     }
     const removeTask = (taskID: string) => {
         props.removeTask(taskID);
@@ -46,10 +53,13 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>{props.todolistTitle}</h3>
+            <span className={styles.errorMessage}>{error}</span>
             <div>
                 <Input inputValue={inputValue}
                        onChangeInputValue={setInputValue}
                        addTask={addTask}
+                       error={error}
+                       setError={setError}
                 />
                 <Button buttonTitle={'+'}
                         callback={() => addTask(inputValue)}
