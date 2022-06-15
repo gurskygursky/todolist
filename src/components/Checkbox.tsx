@@ -3,6 +3,7 @@ import React, {ChangeEvent} from 'react';
 type CheckboxPropsType = {
     callback: (event: boolean) => void;
     checked: boolean;
+    className: string;
 }
 
 export const Checkbox = (props: CheckboxPropsType) => {
@@ -15,6 +16,7 @@ export const Checkbox = (props: CheckboxPropsType) => {
         <input type="checkbox"
                checked={props.checked}
                onChange={onChangeHandler}
+               className={props.className}
         />
     );
 };
