@@ -70,7 +70,7 @@ export const Todolist = (props: PropsType) => {
                 {props.tasks.map((task, index) => {
 
                     return (
-                        <li key={index}>
+                        <li key={index} className={task.isDone ? styles.isDone : ''}>
                             <Checkbox checked={task.isDone}
                                       callback={(isDone) => onCheckboxHandler(task.id, isDone)}
                             />
