@@ -18,11 +18,12 @@ export type TodolistType = {
 }
 
 type PropsType = {
+    todolistID: string;
     todolistTitle: string;
     tasks: TaskType[];
     addTask: (title: string) => void;
     removeTask: (taskID: string) => void;
-    changeFilterTask: (taskFilterValue: TaskFilterType) => void;
+    changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void;
     changeTaskStatus: (taskID: string, isDone: boolean) => void;
     taskFilter: TaskFilterType;
 }
@@ -38,8 +39,8 @@ export const Todolist = (props: PropsType) => {
     let [inputValue, setInputValue] = useState('');
     let [error, setError] = useState<string | null>(null);
 
-    const onChangeFilter = (taskFilterValue: TaskFilterType) => {
-        props.changeFilterTask(taskFilterValue);
+    const onChangeFilter = (todolistID: string, taskFilterValue: TaskFilterType) => {
+        props.changeFilterTask(props.todolistID, taskFilterValue);
     }
     const addTask = (title: string) => {
         if (title.trim() !== '') {
@@ -91,13 +92,13 @@ export const Todolist = (props: PropsType) => {
             </ul>
             <div className={styles.btn}>
                 <Button buttonTitle={Filter.All}
-                        callback={() => onChangeFilter(Filter.All)}
+                        callback={() => onChangeFilter(props.todolistID, Filter.All)}
                         className={props.taskFilter === Filter.All ? styles.activeFilter : ''}/>
                 <Button buttonTitle={Filter.Active}
-                        callback={() => {onChangeFilter(Filter.Active)}}
+                        callback={() => {onChangeFilter(props.todolistID, Filter.Active)}}
                         className={props.taskFilter === Filter.Active ? styles.activeFilter : ''}/>
                 <Button buttonTitle={Filter.Completed}
-                        callback={() => {onChangeFilter(Filter.Completed)}}
+                        callback={() => {onChangeFilter(props.todolistID, Filter.Completed)}}
                         className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>
             </div>
         </div>

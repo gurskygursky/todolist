@@ -19,19 +19,22 @@ export const App = () => {
         ],
     );
 
-    let [filter, setFilterTasks] = useState<TaskFilterType>('All');
+    // let [filter, setFilterTasks] = useState<TaskFilterType>('All');
 
-    let filteredTasks = tasks;
+    // let filteredTasks = tasks;
+    //
+    // if (filter === 'Completed') {
+    //     filteredTasks = tasks.filter((task) => task.isDone)
+    // }
+    // if (filter === 'Active') {
+    //     filteredTasks = tasks.filter((task) => !task.isDone)
+    // }
 
-    if (filter === 'Completed') {
-        filteredTasks = tasks.filter((task) => task.isDone)
-    }
-    if (filter === 'Active') {
-        filteredTasks = tasks.filter((task) => !task.isDone)
-    }
-
-    const changeFilterTask = (taskFilterValue: TaskFilterType) => {
-        setFilterTasks(taskFilterValue);
+    const changeFilterTask = (todolistID: string, taskFilterValue: TaskFilterType) => {
+        // console.log(todolistID);
+        // setFilterTasks(taskFilterValue);
+        setTodolists(todolists.map(
+            (todolist) => todolist.id === todolistID ? {...todolist, filter: taskFilterValue} : todolist));
     }
 
     const addTask = (taskTitle: string) => {
@@ -52,8 +55,17 @@ export const App = () => {
         <div className="App">
             {
                 todolists.map((todolist) => {
+                    let filteredTasks = tasks;
+
+                    if (todolist.filter === 'Completed') {
+                        filteredTasks = tasks.filter((task) => task.isDone)
+                    }
+                    if (todolist.filter === 'Active') {
+                        filteredTasks = tasks.filter((task) => !task.isDone)
+                    }
                     return (
                         <Todolist key={todolist.id}
+                                  todolistID={todolist.id}
                                   tasks={filteredTasks}
                                   todolistTitle={todolist.todolistTitle}
                                   changeFilterTask={changeFilterTask}
