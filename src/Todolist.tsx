@@ -11,6 +11,12 @@ export type TaskType = {
 }
 export type TaskFilterType = 'All' | 'Active' | 'Completed';
 
+export type TodolistType = {
+    id: string;
+    todolistTitle: string;
+    filter: TaskFilterType;
+}
+
 type PropsType = {
     todolistTitle: string;
     tasks: TaskType[];

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {TaskFilterType, TaskType, Todolist} from './Todolist';
+import {TaskFilterType, TaskType, Todolist, TodolistType} from './Todolist';
 import {v1} from "uuid";
 
 export const App = () => {
@@ -12,6 +12,13 @@ export const App = () => {
             {id: v1(), taskTitle: "NodeJS", isDone: false},
         ],
     );
+
+    let [todolists, setTodolists] = useState<TodolistType[]>([
+            {id: v1(), todolistTitle: 'What to learn', filter: 'All'},
+            {id: v1(), todolistTitle: 'What to read', filter: 'All'},
+        ],
+    );
+
     let [filter, setFilterTasks] = useState<TaskFilterType>('All');
 
     let filteredTasks = tasks;
@@ -43,14 +50,29 @@ export const App = () => {
 
     return (
         <div className="App">
-            <Todolist tasks={filteredTasks}
-                      todolistTitle={'What to learn'}
-                      changeFilterTask={changeFilterTask}
-                      addTask={addTask}
-                      removeTask={removeTask}
-                      changeTaskStatus={changeTaskStatus}
-                      taskFilter={filter}
-            />
+            {
+                todolists.map((todolist) => {
+                    return (
+                        <Todolist key={todolist.id}
+                                  tasks={filteredTasks}
+                                  todolistTitle={todolist.todolistTitle}
+                                  changeFilterTask={changeFilterTask}
+                                  addTask={addTask}
+                                  removeTask={removeTask}
+                                  changeTaskStatus={changeTaskStatus}
+                                  taskFilter={todolist.filter}
+                        />
+                    )
+                })
+            }
+            {/*<Todolist tasks={filteredTasks}*/}
+            {/*          todolistTitle={'What to learn'}*/}
+            {/*          changeFilterTask={changeFilterTask}*/}
+            {/*          addTask={addTask}*/}
+            {/*          removeTask={removeTask}*/}
+            {/*          changeTaskStatus={changeTaskStatus}*/}
+            {/*          taskFilter={filter}*/}
+            {/*/>*/}
         </div>
     );
 }
