@@ -7,7 +7,11 @@ import styles from "./Todolist.module.css";
 export type TaskType = {
     id: string;
     taskTitle: string;
+    author?: string;
     isDone: boolean;
+}
+export type TasksType = {
+    [key: string]: TaskType[],
 }
 export type TaskFilterType = 'All' | 'Active' | 'Completed';
 
