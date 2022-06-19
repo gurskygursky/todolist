@@ -17,9 +17,9 @@ export const App = () => {
             ],
             [todolistID2]: [
                 {id: v1(), author: 'Douglas Murray', taskTitle: 'The Madness Of Crowds', isDone: true},
-                {id: v1(), author: 'James Clear' , taskTitle: 'Atomic Habits:', isDone: true},
-                {id: v1(), author: 'William L. Shirer' , taskTitle: 'The Rise and Fall of the Third Reich', isDone: true},
-                {id: v1(), author: 'Nick Morgan' , taskTitle: 'JavaScript for Kids', isDone: true},
+                {id: v1(), author: 'James Clear', taskTitle: 'Atomic Habits:', isDone: true},
+                {id: v1(), author: 'William L. Shirer', taskTitle: 'The Rise and Fall of the Third Reich', isDone: true},
+                {id: v1(), author: 'Nick Morgan', taskTitle: 'JavaScript for Kids', isDone: true},
             ],
         },
     );
@@ -44,15 +44,17 @@ export const App = () => {
     const changeFilterTask = (todolistID: string, taskFilterValue: TaskFilterType) => {
         // console.log(todolistID);
         // setFilterTasks(taskFilterValue);
-        // setTodolists(todolists.map(
-        //     (todolist) => todolist.id === todolistID ? {...todolist, filter: taskFilterValue} : todolist));
-    }
+        setTodolists(todolists.map((todolist) => todolist.id === todolistID
+            ? {...todolist, filter: taskFilterValue}
+            : todolist));
+    };
 
-    const addTask = (taskTitle: string) => {
-        // const task = {id: v1(), taskTitle: taskTitle, isDone: false};
+    const addTask = (todolistID: string, taskTitle: string) => {
+        const task = {id: v1(), taskTitle: taskTitle, isDone: false};
         // const newTask = [task, ...tasks];
-        // setTasks(newTask);
-    }
+        setTasks({...tasks, [todolistID]: [task, ...tasks[todolistID]]});
+    };
+
 
     const removeTask = (taskID: string) => {
         // const afterRemove = tasks.filter((task) => task.id !== taskID);
