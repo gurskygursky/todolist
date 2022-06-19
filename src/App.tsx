@@ -60,7 +60,12 @@ export const App = () => {
         // const afterRemove = tasks.filter((task) => task.id !== taskID);
         setTasks({...tasks, [todolistID]: tasks[todolistID].filter(removedTask => removedTask.id !== taskID)});
     }
-    const changeTaskStatus = (taskID: string, isDone: boolean) => {
+    const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
+        setTasks({
+            ...tasks, [todolistID]: tasks[todolistID].map(changingTask => changingTask.id === taskID
+                ? {...changingTask, isDone}
+                : changingTask)
+        });
         // setTasks(tasks.map((task) => task.id === taskID ? {...task, isDone} : task));
     }
 
