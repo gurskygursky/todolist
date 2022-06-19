@@ -26,7 +26,7 @@ type PropsType = {
     todolistTitle: string;
     tasks: TaskType[];
     addTask: (todolistID: string, title: string) => void;
-    removeTask: (taskID: string) => void;
+    removeTask: (todolistID: string, taskID: string) => void;
     changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void;
     changeTaskStatus: (taskID: string, isDone: boolean) => void;
     taskFilter: TaskFilterType;
@@ -56,7 +56,7 @@ export const Todolist = (props: PropsType) => {
         }
     }
     const removeTask = (taskID: string) => {
-        props.removeTask(taskID);
+        props.removeTask(props.todolistID, taskID);
     }
     const onCheckboxHandler = (taskID: string, isDone: boolean) => {
         props.changeTaskStatus(taskID, isDone)
