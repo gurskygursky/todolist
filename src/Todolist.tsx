@@ -99,10 +99,14 @@ export const Todolist = (props: PropsType) => {
                         callback={() => onChangeFilter(props.todolistID, Filter.All)}
                         className={props.taskFilter === Filter.All ? styles.activeFilter : ''}/>
                 <Button buttonTitle={Filter.Active}
-                        callback={() => {onChangeFilter(props.todolistID, Filter.Active)}}
+                        callback={() => {
+                            onChangeFilter(props.todolistID, Filter.Active)
+                        }}
                         className={props.taskFilter === Filter.Active ? styles.activeFilter : ''}/>
                 <Button buttonTitle={Filter.Completed}
-                        callback={() => {onChangeFilter(props.todolistID, Filter.Completed)}}
+                        callback={() => {
+                            onChangeFilter(props.todolistID, Filter.Completed)
+                        }}
                         className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>
             </div>
         </div>

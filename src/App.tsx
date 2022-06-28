@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskFilterType, TasksType, Todolist, TodolistType} from './Todolist';
 import {v1} from "uuid";
+import {AddItemForm} from './components/AddItemForm';
 
 export const App = () => {
 

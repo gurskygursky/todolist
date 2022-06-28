@@ -1,0 +1,7 @@
+.error {
+    border: crimson 2px solid;
+}
+
+.errorMessage {
+    color: crimson;
+}
