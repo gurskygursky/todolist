@@ -3,6 +3,7 @@ import {Button} from "./components/Button";
 import {Input} from "./components/Input";
 import {Checkbox} from "./components/Checkbox";
 import styles from "./Todolist.module.css";
+import {AddItemForm} from "./components/AddItemForm";
 
 export type TaskType = {
     id: string;
@@ -66,17 +67,18 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.todolistTitle}</h3>
             <span className={styles.errorMessage}>{error}</span>
-            <div className={styles.btn}>
-                <Input inputValue={inputValue}
-                       onChangeInputValue={setInputValue}
-                       addTask={addTask}
-                       error={error}
-                       setError={setError}
-                />
-                <Button buttonTitle={'+'}
-                        callback={() => addTask(inputValue)}
-                />
-            </div>
+            <AddItemForm addFormCallback={addTask}/>
+            {/*<div className={styles.btn}>*/}
+            {/*    <Input inputValue={inputValue}*/}
+            {/*           onChangeInputValue={setInputValue}*/}
+            {/*           addTask={addTask}*/}
+            {/*           error={error}*/}
+            {/*           setError={setError}*/}
+            {/*    />*/}
+            {/*    <Button buttonTitle={'+'}*/}
+            {/*            callback={() => addTask(inputValue)}*/}
+            {/*    />*/}
+            {/*</div>*/}
 
             <ul>
                 {props.tasks.map((task, index) => {

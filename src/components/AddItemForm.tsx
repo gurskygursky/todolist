@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import style from './AddItemForm.module.css';
 
 type AddItemFormType = {
-    addFormValue: (value: string) => void;
+    addFormCallback: (value: string) => void;
 }
 
 export const AddItemForm = (props: AddItemFormType) => {
@@ -11,11 +11,14 @@ export const AddItemForm = (props: AddItemFormType) => {
     let [error, setError] = useState<string | null>('')
 
     const onChangeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.currentTarget.value) {
+            setError('');
+        }
         setInputValue(event.currentTarget.value);
     }
-    const addValue = () => {
+    const addFormValue = () => {
         if (inputValue !== '') {
-            props.addFormValue(inputValue);
+            props.addFormCallback(inputValue);
             setInputValue('');
         } else {
             setError('Title is required');
@@ -23,7 +26,7 @@ export const AddItemForm = (props: AddItemFormType) => {
     }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            addValue();
+            addFormValue();
             setInputValue('');
         }
     }
@@ -36,8 +39,8 @@ export const AddItemForm = (props: AddItemFormType) => {
                    onKeyDown={onKeyPressHandler}
                    className={error ? style.error : ''}
             />
-            <button onClick={addValue}>+</button>
-            <span className={error ? style.errorMessage : ''}>{error}</span>
+            <button onClick={addFormValue}>+</button>
+            <div className={error ? style.errorMessage : ''}>{error}</div>
         </div>
     );
 };
