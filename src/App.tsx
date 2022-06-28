@@ -69,9 +69,16 @@ export const App = () => {
         });
         // setTasks(tasks.map((task) => task.id === taskID ? {...task, isDone} : task));
     }
+    const addTodolist = (todolistTitle: string) => {
+        const newTodolistID = v1();
+        const newTodolist: TodolistType = {id: newTodolistID, todolistTitle, filter: "All" }
+        setTodolists([newTodolist,...todolists]);
+        setTasks({...tasks, [newTodolistID]: []});
+    }
 
     return (
         <div className="App">
+            <AddItemForm addFormCallback={addTodolist}/>
             {
                 todolists.map((todolist) => {
                     let filteredTasks = tasks[todolist.id];
