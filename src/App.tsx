@@ -71,9 +71,15 @@ export const App = () => {
     }
     const addTodolist = (todolistTitle: string) => {
         const newTodolistID = v1();
-        const newTodolist: TodolistType = {id: newTodolistID, todolistTitle, filter: "All" }
-        setTodolists([newTodolist,...todolists]);
+        const newTodolist: TodolistType = {id: newTodolistID, todolistTitle, filter: "All"}
+        setTodolists([newTodolist, ...todolists]);
         setTasks({...tasks, [newTodolistID]: []});
+    }
+    const editTodolistTitle = (todolistID: string, todolistTitle: string) => {
+        setTodolists(todolists.map(todolist =>
+            todolist.id === todolistID
+                ? {...todolist, todolistTitle}
+                : todolist));
     }
 
     return (
@@ -99,6 +105,7 @@ export const App = () => {
                                   removeTask={removeTask}
                                   changeTaskStatus={changeTaskStatus}
                                   taskFilter={todolist.filter}
+                                  editTodolistTitle={editTodolistTitle}
                         />
                     )
                 })

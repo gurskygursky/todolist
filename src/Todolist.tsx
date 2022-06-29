@@ -4,6 +4,7 @@ import {Input} from "./components/Input";
 import {Checkbox} from "./components/Checkbox";
 import styles from "./Todolist.module.css";
 import {AddItemForm} from "./components/AddItemForm";
+import {EditableSpan} from "./components/EditableSpan";
 
 export type TaskType = {
     id: string;
@@ -31,6 +32,7 @@ type PropsType = {
     changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void;
     changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void;
     taskFilter: TaskFilterType;
+    editTodolistTitle: (todolistID: string, todolistTitle: string) => void;
 }
 
 enum Filter {
@@ -62,10 +64,18 @@ export const Todolist = (props: PropsType) => {
     const onCheckboxHandler = (taskID: string, isDone: boolean) => {
         props.changeTaskStatus(props.todolistID, taskID, isDone)
     }
+    const editTodolistTitle = (value: string) => {
+        props.editTodolistTitle(props.todolistID, value);
+    }
 
     return (
         <div>
-            <h3>{props.todolistTitle}</h3>
+            {/*<h3>{props.todolistTitle}</h3>*/}
+            <h3>
+                <EditableSpan value={props.todolistTitle}
+                              callback={(value) => editTodolistTitle(value)}
+                />
+            </h3>
             <span className={styles.errorMessage}>{error}</span>
             <AddItemForm addFormCallback={addTask}/>
             {/*<div className={styles.btn}>*/}
