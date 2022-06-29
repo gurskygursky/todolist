@@ -7,10 +7,7 @@ import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 
 export type TaskType = {
-    id: string;
-    taskTitle: string;
-    author?: string;
-    isDone: boolean;
+    id: string; taskTitle: string; author?: string; isDone: boolean;
 }
 export type TasksType = {
     [key: string]: TaskType[],
@@ -18,27 +15,15 @@ export type TasksType = {
 export type TaskFilterType = 'All' | 'Active' | 'Completed';
 
 export type TodolistType = {
-    id: string;
-    todolistTitle: string;
-    filter: TaskFilterType;
+    id: string; todolistTitle: string; filter: TaskFilterType;
 }
 
 type PropsType = {
-    todolistID: string;
-    todolistTitle: string;
-    tasks: TaskType[];
-    addTask: (todolistID: string, title: string) => void;
-    removeTask: (todolistID: string, taskID: string) => void;
-    changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void;
-    changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void;
-    taskFilter: TaskFilterType;
-    editTodolistTitle: (todolistID: string, todolistTitle: string) => void;
+    todolistID: string; todolistTitle: string; tasks: TaskType[]; addTask: (todolistID: string, title: string) => void; removeTask: (todolistID: string, taskID: string) => void; changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void; changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void; taskFilter: TaskFilterType; editTodolistTitle: (todolistID: string, todolistTitle: string) => void; editTaskTitle: (todolistID: string, taskID: string, taskTitle: string) => void;
 }
 
 enum Filter {
-    All = 'All',
-    Active = 'Active',
-    Completed = 'Completed',
+    All = 'All', Active = 'Active', Completed = 'Completed',
 }
 
 export const Todolist = (props: PropsType) => {
@@ -67,9 +52,11 @@ export const Todolist = (props: PropsType) => {
     const editTodolistTitle = (value: string) => {
         props.editTodolistTitle(props.todolistID, value);
     }
+    const editTaskTitle = (taskID: string, value: string) => {
+        props.editTaskTitle(props.todolistID, taskID, value);
+    }
 
-    return (
-        <div>
+    return (<div>
             {/*<h3>{props.todolistTitle}</h3>*/}
             <h3>
                 <EditableSpan value={props.todolistTitle}
@@ -92,18 +79,19 @@ export const Todolist = (props: PropsType) => {
 
             <ul>
                 {props.tasks.map((task, index) => {
-                    return (
-                        <li key={index} className={task.isDone ? styles.isDone : ''}>
+                    return (<li key={index} className={task.isDone ? styles.isDone : ''}>
                             <div className={styles.btn}>
                                 <Checkbox checked={task.isDone}
                                           className={styles.btn}
                                           callback={(isDone) => onCheckboxHandler(task.id, isDone)}
                                 />
                                 <Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>
-                                <span>{task.taskTitle}</span>
+                                {/*<span>{task.taskTitle}</span>*/}
+                                <EditableSpan value={task.taskTitle}
+                                              callback={(value) => editTaskTitle(task.id, value)}
+                                />
                             </div>
-                        </li>
-                    )
+                        </li>)
                 })}
             </ul>
             <div className={styles.btn}>
@@ -121,6 +109,5 @@ export const Todolist = (props: PropsType) => {
                         }}
                         className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>
             </div>
-        </div>
-    );
+        </div>);
 }
