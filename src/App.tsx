@@ -8,7 +8,7 @@ export const App = () => {
 
     const todolistID1 = v1();
     const todolistID2 = v1();
-
+    //state
     let [tasks, setTasks] = useState<TasksType>({
             [todolistID1]: [
                 {id: v1(), taskTitle: 'HTML&CSS', isDone: true},
@@ -24,41 +24,23 @@ export const App = () => {
             ],
         },
     );
-
     let [todolists, setTodolists] = useState<TodolistType[]>([
             {id: todolistID1, todolistTitle: 'What to learn', filter: 'All'},
             {id: todolistID2, todolistTitle: 'Reading list', filter: 'All'},
         ],
     );
-
-    // let [filter, setFilterTasks] = useState<TaskFilterType>('All');
-
-    // let filteredTasks = tasks;
-    //
-    // if (filter === 'Completed') {
-    //     filteredTasks = tasks.filter((task) => task.isDone)
-    // }
-    // if (filter === 'Active') {
-    //     filteredTasks = tasks.filter((task) => !task.isDone)
-    // }
-
+    //filter
     const changeFilterTask = (todolistID: string, taskFilterValue: TaskFilterType) => {
-        // console.log(todolistID);
-        // setFilterTasks(taskFilterValue);
         setTodolists(todolists.map((todolist) => todolist.id === todolistID
             ? {...todolist, filter: taskFilterValue}
             : todolist));
     };
-
+    //tasks
     const addTask = (todolistID: string, taskTitle: string) => {
         const task = {id: v1(), taskTitle: taskTitle, isDone: false};
-        // const newTask = [task, ...tasks];
         setTasks({...tasks, [todolistID]: [task, ...tasks[todolistID]]});
-    };
-
-
+    }
     const removeTask = (todolistID: string, taskID: string) => {
-        // const afterRemove = tasks.filter((task) => task.id !== taskID);
         setTasks({...tasks, [todolistID]: tasks[todolistID].filter(removedTask => removedTask.id !== taskID)});
     }
     const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
@@ -67,11 +49,17 @@ export const App = () => {
                 ? {...changingTask, isDone}
                 : changingTask)
         });
-        // setTasks(tasks.map((task) => task.id === taskID ? {...task, isDone} : task));
     }
+    const editTaskTitle = (todolistID: string, taskID: string, taskTitle: string) => {
+        setTasks({
+            ...tasks,
+            [todolistID]: tasks[todolistID].map(task => task.id === taskID ? {...task, taskTitle} : task)
+        });
+    }
+    //todolist
     const addTodolist = (todolistTitle: string) => {
         const newTodolistID = v1();
-        const newTodolist: TodolistType = {id: newTodolistID, todolistTitle, filter: "All"}
+        const newTodolist: TodolistType = {id: newTodolistID, todolistTitle, filter: "All"};
         setTodolists([newTodolist, ...todolists]);
         setTasks({...tasks, [newTodolistID]: []});
     }
@@ -80,12 +68,6 @@ export const App = () => {
             todolist.id === todolistID
                 ? {...todolist, todolistTitle}
                 : todolist));
-    }
-    const editTaskTitle = (todolistID: string, taskID: string, taskTitle: string) => {
-        setTasks({
-            ...tasks,
-            [todolistID]: tasks[todolistID].map(task => task.id === taskID ? {...task, taskTitle} : task)
-        })
     }
     const removeTodolist = (todolistID: string) => {
         setTodolists(todolists.filter(todolist => todolist.id !== todolistID));
@@ -119,17 +101,9 @@ export const App = () => {
                                   editTaskTitle={editTaskTitle}
                                   removeTodolist={removeTodolist}
                         />
-                    )
+                    );
                 })
             }
-            {/*<Todolist tasks={filteredTasks}*/}
-            {/*          todolistTitle={'What to learn'}*/}
-            {/*          changeFilterTask={changeFilterTask}*/}
-            {/*          addTask={addTask}*/}
-            {/*          removeTask={removeTask}*/}
-            {/*          changeTaskStatus={changeTaskStatus}*/}
-            {/*          taskFilter={filter}*/}
-            {/*/>*/}
         </div>
     );
 }
