@@ -19,7 +19,7 @@ export type TodolistType = {
 }
 
 type PropsType = {
-    todolistID: string; todolistTitle: string; tasks: TaskType[]; addTask: (todolistID: string, title: string) => void; removeTask: (todolistID: string, taskID: string) => void; changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void; changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void; taskFilter: TaskFilterType; editTodolistTitle: (todolistID: string, todolistTitle: string) => void; editTaskTitle: (todolistID: string, taskID: string, taskTitle: string) => void;
+    todolistID: string; todolistTitle: string; tasks: TaskType[]; addTask: (todolistID: string, title: string) => void; removeTask: (todolistID: string, taskID: string) => void; changeFilterTask: (todolistID: string, taskFilterValue: TaskFilterType) => void; changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void; taskFilter: TaskFilterType; editTodolistTitle: (todolistID: string, todolistTitle: string) => void; editTaskTitle: (todolistID: string, taskID: string, taskTitle: string) => void; removeTodolist: (todolistID: string) => void;
 }
 
 enum Filter {
@@ -55,6 +55,9 @@ export const Todolist = (props: PropsType) => {
     const editTaskTitle = (taskID: string, value: string) => {
         props.editTaskTitle(props.todolistID, taskID, value);
     }
+    const removeTodolist = () => {
+        props.removeTodolist(props.todolistID);
+    }
 
     return (<div>
             {/*<h3>{props.todolistTitle}</h3>*/}
@@ -62,7 +65,9 @@ export const Todolist = (props: PropsType) => {
                 <EditableSpan value={props.todolistTitle}
                               callback={(value) => editTodolistTitle(value)}
                 />
+                <Button buttonTitle={'x'} callback={() => removeTodolist()}/>
             </h3>
+
             <span className={styles.errorMessage}>{error}</span>
             <AddItemForm addFormCallback={addTask}/>
             {/*<div className={styles.btn}>*/}
