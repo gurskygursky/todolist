@@ -1,5 +1,8 @@
+import TextField from '@mui/material/TextField/TextField';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import style from './AddItemForm.module.css';
+// import style from './AddItemForm.module.css';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack/Stack';
 
 type AddItemFormType = {
     addFormCallback: (value: string) => void;
@@ -33,14 +36,28 @@ export const AddItemForm = (props: AddItemFormType) => {
 
     return (
         <div>
-            <input type={"text"}
-                   value={inputValue}
-                   onChange={onChangeInputValueHandler}
-                   onKeyDown={onKeyPressHandler}
-                   className={error ? style.error : ''}
-            />
-            <button onClick={addFormValue}>+</button>
-            <div className={error ? style.errorMessage : ''}>{error}</div>
+            {/*<input type={"text"}*/}
+            {/*       value={inputValue}*/}
+            {/*       onChange={onChangeInputValueHandler}*/}
+            {/*       onKeyDown={onKeyPressHandler}*/}
+            {/*       className={error ? style.error : ''}*/}
+            {/*/>*/}
+            <Stack direction="row" alignItems="center" spacing={1}>
+                <TextField id="outlined-basic"
+                           error={!!error}
+                           label={error}
+                           variant="outlined"
+                           size={'small'}
+                           value={inputValue}
+                           onChange={onChangeInputValueHandler}
+                           onKeyDown={onKeyPressHandler}
+                />
+                <Button variant="outlined"
+                        style={{minWidth:'40px', minHeight:'40px', maxWidth:'40px', maxHeight:'40px'}}
+                        onClick={addFormValue}>+</Button>
+            </Stack>
+            {/*<button onClick={addFormValue}>+</button>*/}
+            {/*<div className={error ? style.errorMessage : ''}>{error}</div>*/}
         </div>
     );
 };
