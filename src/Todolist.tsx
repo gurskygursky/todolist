@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack/Stack';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {Container, Grid} from "@mui/material";
 
 
 export type TaskType = {
@@ -97,33 +98,39 @@ export const Todolist = (props: PropsType) => {
                               callback={(value) => editTodolistTitle(value)}
                 />
                 <IconButton aria-label="delete" size="small" onClick={removeTodolist}>
-                    <DeleteIcon fontSize="inherit" />
+                    <DeleteIcon fontSize="inherit"/>
                 </IconButton>
                 {/*<Button buttonTitle={'x'} callback={() => removeTodolist()}/>*/}
             </h3>
             <span className={styles.errorMessage}>{error}</span>
-            <AddItemForm addFormCallback={addTask}/>
-            <ul>
+            <Grid container style={{paddingBottom: '10px' }}>
+                <AddItemForm addFormCallback={addTask}/>
+            </Grid>
+            <div>
                 {props.tasks.map((task, index) => {
-                    return (<li key={index} className={task.isDone ? styles.isDone : ''}>
-                        <div className={styles.btn}>
-                            <CheckboxComponent checked={task.isDone}
-                                      className={styles.btn}
-                                      callback={(isDone) => onCheckboxHandler(task.id, isDone)}
-                            />
-                            <IconButton aria-label="delete" size="small"
-                                        onClick={() => removeTask(task.id)}>
-                                <DeleteIcon fontSize="inherit" />
-                            </IconButton>
-                            {/*<Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>*/}
-                            <EditableSpan value={task.taskTitle}
-                                          callback={(value) => editTaskTitle(task.id, value)}
-                            />
-                        </div>
-                    </li>)
+                    return (
+                        <Stack direction={'column'} spacing={1}>
+                            <div key={index} className={task.isDone ? styles.isDone : ''} style={{listStyle: 'none'}}>
+                                <div className={styles.btn}>
+                                    <CheckboxComponent checked={task.isDone}
+                                                       className={styles.btn}
+                                                       callback={(isDone) => onCheckboxHandler(task.id, isDone)}
+                                    />
+                                    <IconButton aria-label="delete" size="small"
+                                                onClick={() => removeTask(task.id)}>
+                                        <DeleteIcon fontSize="inherit"/>
+                                    </IconButton>
+                                    {/*<Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>*/}
+                                    <EditableSpan value={task.taskTitle}
+                                                  callback={(value) => editTaskTitle(task.id, value)}
+                                    />
+                                </div>
+                            </div>
+                        </Stack>
+                    )
                 })}
-            </ul>
-            <div className={styles.btn}>
+            </div>
+            {/*<div>*/}
                 <Stack spacing={1} direction="row">
                     <Button variant="outlined"
                             style={styleButtonAll}
@@ -148,7 +155,7 @@ export const Todolist = (props: PropsType) => {
                 {/*            onChangeFilter(props.todolistID, Filter.Completed)*/}
                 {/*        }}*/}
                 {/*        className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>*/}
-            </div>
+            {/*</div>*/}
         </div>
     );
 }
