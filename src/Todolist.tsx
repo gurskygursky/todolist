@@ -6,6 +6,9 @@ import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import Stack from '@mui/material/Stack/Stack';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export type TaskType = {
     id: string;
@@ -92,6 +95,9 @@ export const Todolist = (props: PropsType) => {
                 <EditableSpan value={props.todolistTitle}
                               callback={(value) => editTodolistTitle(value)}
                 />
+                <IconButton aria-label="delete" size="small" onClick={removeTodolist}>
+                    <DeleteIcon fontSize="inherit" />
+                </IconButton>
                 {/*<Button buttonTitle={'x'} callback={() => removeTodolist()}/>*/}
             </h3>
             <span className={styles.errorMessage}>{error}</span>
@@ -104,6 +110,10 @@ export const Todolist = (props: PropsType) => {
                                       className={styles.btn}
                                       callback={(isDone) => onCheckboxHandler(task.id, isDone)}
                             />
+                            <IconButton aria-label="delete" size="small"
+                                        onClick={() => removeTask(task.id)}>
+                                <DeleteIcon fontSize="inherit" />
+                            </IconButton>
                             {/*<Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>*/}
                             <EditableSpan value={task.taskTitle}
                                           callback={(value) => editTaskTitle(task.id, value)}
