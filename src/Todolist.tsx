@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 // import {Button} from "./components/Button";
-import {Checkbox} from "./components/Checkbox";
+import {CheckboxComponent} from "./components/Checkbox";
 import styles from "./Todolist.module.css";
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
@@ -49,6 +49,7 @@ export const Todolist = (props: PropsType) => {
 
     let [inputValue, setInputValue] = useState('');
     let [error, setError] = useState<string | null>(null);
+
 
     const onChangeFilter = (todolistID: string, taskFilterValue: TaskFilterType) => {
         props.changeFilterTask(props.todolistID, taskFilterValue);
@@ -106,7 +107,7 @@ export const Todolist = (props: PropsType) => {
                 {props.tasks.map((task, index) => {
                     return (<li key={index} className={task.isDone ? styles.isDone : ''}>
                         <div className={styles.btn}>
-                            <Checkbox checked={task.isDone}
+                            <CheckboxComponent checked={task.isDone}
                                       className={styles.btn}
                                       callback={(isDone) => onCheckboxHandler(task.id, isDone)}
                             />
