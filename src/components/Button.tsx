@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 type ButtonPropsType = {
     buttonTitle: string;
     callback: () => void;
