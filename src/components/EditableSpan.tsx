@@ -1,3 +1,4 @@
+import Input from '@mui/material/Input';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type EditableSpanType = {
@@ -31,12 +32,18 @@ export const EditableSpan = (props: EditableSpanType) => {
     }
     return (
         edit
-            ? <input value={inputValue}
+            ? <Input value={inputValue}
                      onBlur={editHandler}
                      onKeyDown={onKeyPressHandler}
                      onChange={onChangeInputValueHandler}
                      autoFocus
             />
+            // ? <input value={inputValue}
+            //          onBlur={editHandler}
+            //          onKeyDown={onKeyPressHandler}
+            //          onChange={onChangeInputValueHandler}
+            //          autoFocus
+            // />
             : <span onDoubleClick={editHandler}>{props.value}</span>
     );
 };
