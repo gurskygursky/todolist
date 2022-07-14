@@ -1,5 +1,6 @@
 import {v1} from 'uuid';
 import type {TodolistType} from '../Todolist';
+import {TaskFilterType} from '../Todolist';
 
 export const todolistsReducer = (state: TodolistType[], action: TodolistReducerActionType): TodolistType[] => {
     switch (action.type) {
@@ -11,6 +12,10 @@ export const todolistsReducer = (state: TodolistType[], action: TodolistReducerA
         case 'CHANGE_TODOLIST_TITLE':
             return state.map(td => td.id === action.payload.todolistId2
                 ? {...td, todolistTitle: action.payload.todolistTitle}
+                : td);
+        case 'CHANGE_TODOLIST_FILTER':
+            return state.map(td => td.id === action.payload.todolistId2
+                ? {...td, filter: action.payload.filter}
                 : td);
         default:
             throw new Error('I don\'t understand this type')
@@ -39,12 +44,24 @@ export const removeTodolistAC = (todolistId1: string) => {
         payload: {todolistId1}
     } as const
 }
+export const changeTodolistFilterAC = (todolistId2: string, filter: TaskFilterType) => {
+    return {
+        type: 'CHANGE_TODOLIST_FILTER',
+        payload: {
+            todolistId2,
+            filter,
+        }
+    } as const
+}
+
 
 //action types
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>;
 export type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitleAC>;
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>;
+export type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilterAC>;
 export type TodolistReducerActionType =
     AddTodolistActionType |
     ChangeTodolistTitleActionType |
-    RemoveTodolistActionType;
+    RemoveTodolistActionType |
+    ChangeTodolistFilterActionType;
