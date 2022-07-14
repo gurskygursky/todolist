@@ -11,7 +11,7 @@ export const App = () => {
 
     const todolistID1 = v1();
     const todolistID2 = v1();
-    //state
+    //reducers
     let [tasks, setTasks] = useState<TasksType>({
             [todolistID1]: [
                 {id: v1(), taskTitle: 'HTML&CSS', isDone: true},
