@@ -1,12 +1,12 @@
 import {v1} from 'uuid';
-import {removeTodolistAC, todolistsReducer} from './todolist-reducer';
+import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer} from './todolist-reducer';
 import type {TodolistType} from '../Todolist';
 
 test('correct todolist should be removed', () => {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    const startState: Array<TodolistType> = [
+    const startState: TodolistType[] = [
         {id: todolistId1, todolistTitle: "What to learn", filter: "All"},
         {id: todolistId2, todolistTitle: "What to buy", filter: "All"}
     ]
@@ -15,4 +15,39 @@ test('correct todolist should be removed', () => {
 
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);
+});
+test('correct todolist should be added', () => {
+    let todolistId1 = v1();
+    let todolistId2 = v1();
+
+    let newTodolistTitle = 'New Todolist';
+
+    const startState: TodolistType[] = [
+        {id: todolistId1, todolistTitle: "What to learn", filter: "All"},
+        {id: todolistId2, todolistTitle: "What to buy", filter: "All"}
+    ]
+
+    const endState = todolistsReducer(startState, addTodolistAC(newTodolistTitle));
+
+    expect(endState.length).toBe(3);
+    expect(endState[2].todolistTitle).toBe(newTodolistTitle);
+    expect(endState[2].todolistTitle).toEqual('New Todolist');
+});
+
+test('correct todolist should change its name', () => {
+    let todolistId1 = v1();
+    let todolistId2 = v1();
+
+    let newTodolistTitle = 'New Todolist';
+
+    const startState: TodolistType[] = [
+        {id: todolistId1, todolistTitle: "What to learn", filter: "All"},
+        {id: todolistId2, todolistTitle: "What to buy", filter: "All"}
+    ]
+
+    const endState = todolistsReducer(startState, changeTodolistTitleAC(todolistId2, newTodolistTitle));
+
+    expect(endState[0].todolistTitle).toBe("What to learn");
+    expect(endState[1].todolistTitle).toBe(newTodolistTitle);
+    expect(endState[1].todolistTitle).toEqual('New Todolist');
 });
