@@ -1,6 +1,5 @@
 import {v1} from 'uuid';
-import type {TodolistType} from '../Todolist';
-import {TaskFilterType} from '../Todolist';
+import type {TaskFilterType, TodolistType} from '../../Todolist';
 
 export const todolistsReducer = (state: TodolistType[], action: TodolistReducerActionType): TodolistType[] => {
     switch (action.type) {

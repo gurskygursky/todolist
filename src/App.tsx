@@ -5,7 +5,6 @@ import {v1} from 'uuid';
 import {AddItemForm} from './components/AddItemForm';
 import {BasicAppBar} from './components/BasicAppBar';
 import {Container, Grid, Paper} from '@mui/material';
-import Stack from '@mui/material/Stack/Stack';
 
 export const App = () => {
 
