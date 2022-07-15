@@ -11,13 +11,29 @@ import {
     changeTodolistTitleAC, removeTodolistAC,
     todolistReducer
 } from './reducers/todolist-reducer/todolist-reducer';
+import {tasksReducer} from './reducers/tasks-reducer/tasks-reducer';
 
 export const App = () => {
 
     const todolistID1 = v1();
     const todolistID2 = v1();
     //reducers
-    let [tasks, setTasks] = useState<TasksType>({
+    // let [tasks, setTasks] = useState<TasksType>({
+    //         [todolistID1]: [
+    //             {id: v1(), taskTitle: 'HTML&CSS', isDone: true},
+    //             {id: v1(), taskTitle: 'JS', isDone: true},
+    //             {id: v1(), taskTitle: 'ReactJS', isDone: false},
+    //             {id: v1(), taskTitle: 'NodeJS', isDone: false},
+    //         ],
+    //         [todolistID2]: [
+    //             {id: v1(), author: 'Douglas Murray', taskTitle: 'The Madness Of Crowds', isDone: true},
+    //             {id: v1(), author: 'James Clear', taskTitle: 'Atomic Habits:', isDone: true},
+    //             {id: v1(), author: 'William L. Shirer', taskTitle: 'The Rise and Fall of the Third Reich', isDone: true},
+    //             {id: v1(), author: 'Nick Morgan', taskTitle: 'JavaScript for Kids', isDone: true},
+    //         ],
+    //     },
+    // );
+    let [tasks, dispatchTasks] = useReducer(tasksReducer,{
             [todolistID1]: [
                 {id: v1(), taskTitle: 'HTML&CSS', isDone: true},
                 {id: v1(), taskTitle: 'JS', isDone: true},
@@ -51,28 +67,30 @@ export const App = () => {
     };
     //tasks
     const addTask = (todolistID: string, taskTitle: string) => {
-        const task = {id: v1(), taskTitle: taskTitle, isDone: false};
-        setTasks({...tasks, [todolistID]: [task, ...tasks[todolistID]]});
+        // const task = {id: v1(), taskTitle: taskTitle, isDone: false};
+        // setTasks({...tasks, [todolistID]: [task, ...tasks[todolistID]]});
     }
     const removeTask = (todolistID: string, taskID: string) => {
-        setTasks({...tasks, [todolistID]: tasks[todolistID].filter(removedTask => removedTask.id !== taskID)});
+        // setTasks({...tasks, [todolistID]: tasks[todolistID].filter(removedTask => removedTask.id !== taskID)});
     }
     const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
-        setTasks({
-            ...tasks, [todolistID]: tasks[todolistID].map(changingTask => changingTask.id === taskID
-                ? {...changingTask, isDone}
-                : changingTask)
-        });
+        // setTasks({
+        //     ...tasks, [todolistID]: tasks[todolistID].map(changingTask => changingTask.id === taskID
+        //         ? {...changingTask, isDone}
+        //         : changingTask)
+        // });
     }
     const editTaskTitle = (todolistID: string, taskID: string, taskTitle: string) => {
-        setTasks({
-            ...tasks,
-            [todolistID]: tasks[todolistID].map(task => task.id === taskID ? {...task, taskTitle} : task)
-        });
+        // setTasks({
+        //     ...tasks,
+        //     [todolistID]: tasks[todolistID].map(task => task.id === taskID ? {...task, taskTitle} : task)
+        // });
     }
     //todolist
     const addTodolist = (todolistTitle: string) => {
-        dispatchTodolist(addTodolistAC(todolistTitle));
+        const action = addTodolistAC(todolistTitle);
+        dispatchTodolist(action);
+        dispatchTasks(action);
         // const newTodolistID = v1();
         // const newTodolist: TodolistType = {id: newTodolistID, todolistTitle, filter: 'All'};
         // setTodolists([newTodolist, ...todolists]);
