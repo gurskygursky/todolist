@@ -11,7 +11,13 @@ import {
     changeTodolistTitleAC, removeTodolistAC,
     todolistReducer
 } from './reducers/todolist-reducer/todolist-reducer';
-import {addTaskAC, removeTaskAC, tasksReducer} from './reducers/tasks-reducer/tasks-reducer';
+import {
+    addTaskAC,
+    changeTaskStatusAC,
+    editTaskTitleAC,
+    removeTaskAC,
+    tasksReducer
+} from './reducers/tasks-reducer/tasks-reducer';
 
 export const App = () => {
 
@@ -76,6 +82,7 @@ export const App = () => {
         // setTasks({...tasks, [todolistID]: tasks[todolistID].filter(removedTask => removedTask.id !== taskID)});
     }
     const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
+        dispatchTasks(changeTaskStatusAC(todolistID, taskID, isDone));
         // setTasks({
         //     ...tasks, [todolistID]: tasks[todolistID].map(changingTask => changingTask.id === taskID
         //         ? {...changingTask, isDone}
@@ -83,6 +90,7 @@ export const App = () => {
         // });
     }
     const editTaskTitle = (todolistID: string, taskID: string, taskTitle: string) => {
+        dispatchTasks(editTaskTitleAC(todolistID, taskID, taskTitle));
         // setTasks({
         //     ...tasks,
         //     [todolistID]: tasks[todolistID].map(task => task.id === taskID ? {...task, taskTitle} : task)
