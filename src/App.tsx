@@ -11,7 +11,7 @@ import {
     changeTodolistTitleAC, removeTodolistAC,
     todolistReducer
 } from './reducers/todolist-reducer/todolist-reducer';
-import {tasksReducer} from './reducers/tasks-reducer/tasks-reducer';
+import {addTaskAC, removeTaskAC, tasksReducer} from './reducers/tasks-reducer/tasks-reducer';
 
 export const App = () => {
 
@@ -67,10 +67,12 @@ export const App = () => {
     };
     //tasks
     const addTask = (todolistID: string, taskTitle: string) => {
+        dispatchTasks(addTaskAC(todolistID, taskTitle));
         // const task = {id: v1(), taskTitle: taskTitle, isDone: false};
         // setTasks({...tasks, [todolistID]: [task, ...tasks[todolistID]]});
     }
     const removeTask = (todolistID: string, taskID: string) => {
+        dispatchTasks(removeTaskAC(todolistID, taskID));
         // setTasks({...tasks, [todolistID]: tasks[todolistID].filter(removedTask => removedTask.id !== taskID)});
     }
     const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
