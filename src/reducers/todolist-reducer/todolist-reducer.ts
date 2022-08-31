@@ -1,7 +1,9 @@
 import {v1} from 'uuid';
 import type {TaskFilterType, TodolistType} from '../../Todolist';
 
-export const todolistReducer = (state: TodolistType[], action: TodolistReducerActionType): TodolistType[] => {
+const initialState: TodolistType[] = [];
+
+export const todolistReducer = (state = initialState , action: TodolistReducerActionType): TodolistType[] => {
     switch (action.type) {
         case 'ADD_TODOLIST':
             const newTodolist: TodolistType = {
@@ -20,8 +22,8 @@ export const todolistReducer = (state: TodolistType[], action: TodolistReducerAc
             return state.map(td => td.id === action.payload.todolistID
                 ? {...td, filter: action.payload.filter}
                 : td);
-        default:
-            throw new Error('I don\'t understand this type')
+        default: return state;
+            // throw new Error('I don\'t understand this type')
     }
 }
 

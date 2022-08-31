@@ -2,7 +2,9 @@ import type {TasksType} from '../../Todolist';
 import {AddTodolistActionType, RemoveTodolistActionType} from '../../reducers/todolist-reducer/todolist-reducer';
 import {v1} from 'uuid';
 
-export const tasksReducer = (state: TasksType, action: TaskReducerActionType | AddTodolistActionType | RemoveTodolistActionType) => {
+const initialState: TasksType = {}
+
+export const tasksReducer = (state = initialState, action: TaskReducerActionType | AddTodolistActionType | RemoveTodolistActionType) => {
     switch (action.type) {
         case 'ADD_TODOLIST':
             return {...state, [action.payload.todolistID]: []}
@@ -35,7 +37,7 @@ export const tasksReducer = (state: TasksType, action: TaskReducerActionType | A
                 const copyState = {...state};
                 delete copyState[action.payload.todolistID];
                 return copyState;
-
+        default: return state;
     }
 }
 

@@ -19,7 +19,7 @@ import {
     tasksReducer
 } from './reducers/tasks-reducer/tasks-reducer';
 
-export const App = () => {
+export const AppWithRedux = () => {
 
     const todolistID1 = v1();
     const todolistID2 = v1();
