@@ -21,7 +21,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import { AppRootStateType } from './state/store';
 
-export const AppWithReducers = () => {
+export const AppWithRedux = () => {
 
     // const todolistID1 = v1();
     // const todolistID2 = v1();
@@ -47,7 +47,7 @@ export const AppWithReducers = () => {
     //         {id: todolistID2, todolistTitle: 'Reading list', filter: 'All'},
     //     ],
     // );
-    
+
     const tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks);
     const todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists);
     const dispatch = useDispatch();
@@ -76,7 +76,7 @@ export const AppWithReducers = () => {
     const addTodolist = (todolistTitle: string) => {
         const action = addTodolistAC(todolistTitle);
         dispatch(action);
-        dispatch(action);
+        // dispatch(action);
     }
     const editTodolistTitle = (todolistID: string, todolistTitle: string) => {
         dispatch(changeTodolistTitleAC(todolistID, todolistTitle));
