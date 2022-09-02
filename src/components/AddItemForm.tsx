@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField/TextField';
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 // import style from './AddItemForm.module.css';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack/Stack';
@@ -8,7 +8,9 @@ type AddItemFormType = {
     addFormCallback: (value: string) => void;
 }
 
-export const AddItemForm = (props: AddItemFormType) => {
+export const AddItemForm = memo((props: AddItemFormType) => {
+
+    console.log('AddItemForm rendered');
 
     let [inputValue, setInputValue] = useState<string>('');
     let [error, setError] = useState<string | null>('')
@@ -60,4 +62,4 @@ export const AddItemForm = (props: AddItemFormType) => {
             {/*<div className={error ? style.errorMessage : ''}>{error}</div>*/}
         </div>
     );
-};
+});

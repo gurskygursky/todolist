@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useCallback, useReducer} from 'react';
 import './App.css';
 import {TaskFilterType, TasksType, TaskType, Todolist, TodolistType} from './Todolist';
 import {v1} from 'uuid';
@@ -58,9 +58,13 @@ export const AppWithRedux = () => {
     };
 
     //tasks
-    const addTask = (todolistID: string, taskTitle: string) => {
+    // const addTask = (todolistID: string, taskTitle: string) => {
+    //     dispatch(addTaskAC(todolistID, taskTitle));
+    // }
+    const addTask = useCallback((todolistID: string, taskTitle: string) => {
         dispatch(addTaskAC(todolistID, taskTitle));
-    }
+    }, [dispatch]);
+
     const removeTask = (todolistID: string, taskID: string) => {
         dispatch(removeTaskAC(todolistID, taskID));
     }
@@ -73,11 +77,17 @@ export const AppWithRedux = () => {
     }
 
     //todolist
-    const addTodolist = (todolistTitle: string) => {
+    // const addTodolist = (todolistTitle: string) => {
+    //     const action = addTodolistAC(todolistTitle);
+    //     dispatch(action);
+    //     // dispatch(action);
+    // }
+
+    const addTodolist = useCallback((todolistTitle: string) => {
         const action = addTodolistAC(todolistTitle);
         dispatch(action);
-        // dispatch(action);
-    }
+    }, [dispatch]);
+
     const editTodolistTitle = (todolistID: string, todolistTitle: string) => {
         dispatch(changeTodolistTitleAC(todolistID, todolistTitle));
     }
