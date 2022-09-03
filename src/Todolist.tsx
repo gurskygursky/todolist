@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 // import {Button} from "./components/Button";
 import {CheckboxComponent} from "./components/Checkbox";
 import styles from "./Todolist.module.css";
@@ -55,7 +55,16 @@ export const Todolist = (props: PropsType) => {
     const onChangeFilter = (todolistID: string, taskFilterValue: TaskFilterType) => {
         props.changeFilterTask(props.todolistID, taskFilterValue);
     }
-    const addTask = (title: string) => {
+    // const addTask = (title: string) => {
+    //     if (title.trim() !== '') {
+    //         props.addTask(props.todolistID, title.trim());
+    //     }
+    //     setInputValue('');
+    //     if (!title) {
+    //         setError('Title is required!');
+    //     }
+    // }
+    const addTask = useCallback((title: string) => {
         if (title.trim() !== '') {
             props.addTask(props.todolistID, title.trim());
         }
@@ -63,7 +72,8 @@ export const Todolist = (props: PropsType) => {
         if (!title) {
             setError('Title is required!');
         }
-    }
+    }, [props.addTask, props.todolistID]);
+
     const removeTask = (taskID: string) => {
         props.removeTask(props.todolistID, taskID);
     }
