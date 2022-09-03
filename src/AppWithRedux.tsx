@@ -114,7 +114,7 @@ export const AppWithRedux = () => {
                                 filteredTasks = tasks[todolist.id].filter((task) => !task.isDone)
                             }
                             return (
-                                <Grid item>
+                                <Grid item key={todolist.id}>
                                     <Paper style={{padding: '10px'}}>
                                         <Todolist key={todolist.id}
                                                   todolistID={todolist.id}
