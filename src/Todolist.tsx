@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, memo} from 'react';
 // import {Button} from "./components/Button";
 import {CheckboxComponent} from "./components/Checkbox";
 import styles from "./Todolist.module.css";
@@ -46,8 +46,10 @@ enum Filter {
     All = 'All', Active = 'Active', Completed = 'Completed',
 }
 
-export const Todolist = (props: PropsType) => {
-    
+export const Todolist = memo((props: PropsType) => {
+
+    console.log('Todolist rendered');
+
     let [inputValue, setInputValue] = useState('');
     let [error, setError] = useState<string | null>(null);
 
@@ -101,6 +103,15 @@ export const Todolist = (props: PropsType) => {
         ? {background: '#1977d2', color: 'white'}
         : {background: 'none'}
 
+    let tasks = props.tasks;
+
+    if (props.taskFilter === 'Completed') {
+        tasks = props.tasks.filter((task) => task.isDone)
+    }
+    if (props.taskFilter === 'Active') {
+        tasks = props.tasks.filter((task) => !task.isDone)
+    }
+
     return (
         <div>
             <h3>
@@ -117,7 +128,7 @@ export const Todolist = (props: PropsType) => {
                 <AddItemForm addFormCallback={addTask}/>
             </Grid>
             <div>
-                {props.tasks.map((task, index) => {
+                {tasks.map((task, index) => {
                     return (
                         <Stack direction={'column'} spacing={1} key={task.id}>
                             <div key={index} className={task.isDone ? styles.isDone : ''} style={{listStyle: 'none'}}>
@@ -168,4 +179,4 @@ export const Todolist = (props: PropsType) => {
             {/*</div>*/}
         </div>
     );
-}
+});
