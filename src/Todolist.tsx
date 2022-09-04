@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Container, Grid} from "@mui/material";
 import {Task} from "./Task";
+import {TaskWithRedux} from "./TaskWithRedux";
 
 
 export type TaskType = {
@@ -77,18 +78,18 @@ export const Todolist = memo((props: PropsType) => {
         }
     }, [props.addTask, props.todolistID]);
 
-    const removeTask = (taskID: string) => {
-        props.removeTask(props.todolistID, taskID);
-    }
-    const onCheckboxHandler = (taskID: string, isDone: boolean) => {
-        props.changeTaskStatus(props.todolistID, taskID, isDone)
-    }
+    // const removeTask = (taskID: string) => {
+    //     props.removeTask(props.todolistID, taskID);
+    // }
+    // const onCheckboxHandler = (taskID: string, isDone: boolean) => {
+    //     props.changeTaskStatus(props.todolistID, taskID, isDone)
+    // }
     const editTodolistTitle = (value: string) => {
         props.editTodolistTitle(props.todolistID, value);
     }
-    const editTaskTitle = (taskID: string, value: string) => {
-        props.editTaskTitle(props.todolistID, taskID, value);
-    }
+    // const editTaskTitle = (taskID: string, value: string) => {
+    //     props.editTaskTitle(props.todolistID, taskID, value);
+    // }
     const removeTodolist = () => {
         props.removeTodolist(props.todolistID);
     }
@@ -129,12 +130,13 @@ export const Todolist = memo((props: PropsType) => {
                 <AddItemForm addFormCallback={addTask}/>
             </Grid>
             <div>
-                {tasks.map((task, index) => <Task
+                {tasks.map((task, index) => <TaskWithRedux
                         key={index}
                         task={task}
-                        removeTask={removeTask}
-                        editTaskTitle={editTaskTitle}
-                        changeTaskStatus={onCheckboxHandler}
+                        todolistID={props.todolistID}
+                        // removeTask={removeTask}
+                        // editTaskTitle={editTaskTitle}
+                        // changeTaskStatus={onCheckboxHandler}
                     />
                     // return (
                     //     <Stack direction={'column'} spacing={1} key={task.id}>
