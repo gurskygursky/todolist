@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Container, Grid} from "@mui/material";
+import {Task} from "./Task";
 
 
 export type TaskType = {
@@ -124,58 +125,64 @@ export const Todolist = memo((props: PropsType) => {
                 {/*<Button buttonTitle={'x'} callback={() => removeTodolist()}/>*/}
             </h3>
             <span className={styles.errorMessage}>{error}</span>
-            <Grid container style={{paddingBottom: '10px' }}>
+            <Grid container style={{paddingBottom: '10px'}}>
                 <AddItemForm addFormCallback={addTask}/>
             </Grid>
             <div>
-                {tasks.map((task, index) => {
-                    return (
-                        <Stack direction={'column'} spacing={1} key={task.id}>
-                            <div key={index} className={task.isDone ? styles.isDone : ''} style={{listStyle: 'none'}}>
-                                <div className={styles.btn}>
-                                    <CheckboxComponent checked={task.isDone}
-                                                       className={styles.btn}
-                                                       callback={(isDone) => onCheckboxHandler(task.id, isDone)}
-                                    />
-                                    <IconButton aria-label="delete" size="small"
-                                                onClick={() => removeTask(task.id)}>
-                                        <DeleteIcon fontSize="inherit"/>
-                                    </IconButton>
-                                    {/*<Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>*/}
-                                    <EditableSpan value={task.taskTitle}
-                                                  callback={(value) => editTaskTitle(task.id, value)}
-                                    />
-                                </div>
-                            </div>
-                        </Stack>
-                    )
-                })}
+                {tasks.map((task, index) => <Task
+                        key={index}
+                        task={task}
+                        removeTask={removeTask}
+                        editTaskTitle={editTaskTitle}
+                        changeTaskStatus={onCheckboxHandler}
+                    />
+                    // return (
+                    //     <Stack direction={'column'} spacing={1} key={task.id}>
+                    //         <div key={index} className={task.isDone ? styles.isDone : ''} style={{listStyle: 'none'}}>
+                    //             <div className={styles.btn}>
+                    //                 <CheckboxComponent checked={task.isDone}
+                    //                                    className={styles.btn}
+                    //                                    callback={(isDone) => onCheckboxHandler(task.id, isDone)}
+                    //                 />
+                    //                 <IconButton aria-label="delete" size="small"
+                    //                             onClick={() => removeTask(task.id)}>
+                    //                     <DeleteIcon fontSize="inherit"/>
+                    //                 </IconButton>
+                    //                 {/*<Button buttonTitle={'x'} callback={() => removeTask(task.id)}/>*/}
+                    //                 <EditableSpan value={task.taskTitle}
+                    //                               callback={(value) => editTaskTitle(task.id, value)}
+                    //                 />
+                    //             </div>
+                    //         </div>
+                    //     </Stack>
+                    // )
+                )}
             </div>
             {/*<div>*/}
-                <Stack spacing={1} direction="row">
-                    <Button variant="outlined"
-                            style={styleButtonAll}
-                            onClick={() => onChangeFilter(props.todolistID, Filter.All)}>{Filter.All}</Button>
-                    <Button variant="outlined"
-                            style={styleButtonActive}
-                            onClick={() => onChangeFilter(props.todolistID, Filter.Active)}>{Filter.Active}</Button>
-                    <Button variant="outlined"
-                            style={styleButtonCompleted}
-                            onClick={() => onChangeFilter(props.todolistID, Filter.Completed)}>{Filter.Completed}</Button>
-                </Stack>
-                {/*<Button buttonTitle={Filter.All}*/}
-                {/*        callback={() => onChangeFilter(props.todolistID, Filter.All)}*/}
-                {/*        className={props.taskFilter === Filter.All ? styles.activeFilter : ''}/>*/}
-                {/*<Button buttonTitle={Filter.Active}*/}
-                {/*        callback={() => {*/}
-                {/*            onChangeFilter(props.todolistID, Filter.Active)*/}
-                {/*        }}*/}
-                {/*        className={props.taskFilter === Filter.Active ? styles.activeFilter : ''}/>*/}
-                {/*<Button buttonTitle={Filter.Completed}*/}
-                {/*        callback={() => {*/}
-                {/*            onChangeFilter(props.todolistID, Filter.Completed)*/}
-                {/*        }}*/}
-                {/*        className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>*/}
+            <Stack spacing={1} direction="row">
+                <Button variant="outlined"
+                        style={styleButtonAll}
+                        onClick={() => onChangeFilter(props.todolistID, Filter.All)}>{Filter.All}</Button>
+                <Button variant="outlined"
+                        style={styleButtonActive}
+                        onClick={() => onChangeFilter(props.todolistID, Filter.Active)}>{Filter.Active}</Button>
+                <Button variant="outlined"
+                        style={styleButtonCompleted}
+                        onClick={() => onChangeFilter(props.todolistID, Filter.Completed)}>{Filter.Completed}</Button>
+            </Stack>
+            {/*<Button buttonTitle={Filter.All}*/}
+            {/*        callback={() => onChangeFilter(props.todolistID, Filter.All)}*/}
+            {/*        className={props.taskFilter === Filter.All ? styles.activeFilter : ''}/>*/}
+            {/*<Button buttonTitle={Filter.Active}*/}
+            {/*        callback={() => {*/}
+            {/*            onChangeFilter(props.todolistID, Filter.Active)*/}
+            {/*        }}*/}
+            {/*        className={props.taskFilter === Filter.Active ? styles.activeFilter : ''}/>*/}
+            {/*<Button buttonTitle={Filter.Completed}*/}
+            {/*        callback={() => {*/}
+            {/*            onChangeFilter(props.todolistID, Filter.Completed)*/}
+            {/*        }}*/}
+            {/*        className={props.taskFilter === Filter.Completed ? styles.activeFilter : ''}/>*/}
             {/*</div>*/}
         </div>
     );
