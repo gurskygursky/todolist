@@ -1,12 +1,14 @@
 import Input from '@mui/material/Input';
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 
 type EditableSpanType = {
     value: string;
     callback: (value: string) => void;
 }
 
-export const EditableSpan = (props: EditableSpanType) => {
+export const EditableSpan = memo((props: EditableSpanType) => {
+
+    console.log('EditableSpan rendered');
 
     const [edit, setEdit] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>(props.value);
@@ -46,4 +48,4 @@ export const EditableSpan = (props: EditableSpanType) => {
             // />
             : <span onDoubleClick={editHandler}>{props.value}</span>
     );
-};
+});

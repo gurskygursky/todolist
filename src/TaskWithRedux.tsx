@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import Stack from '@mui/material/Stack/Stack';
 import IconButton from '@mui/material/IconButton/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -17,7 +17,7 @@ type TaskPropsType = {
     // editTaskTitle: (taskID: string, taskTitle: string) => void;
 }
 
-export const TaskWithRedux = (props: TaskPropsType) => {
+export const TaskWithRedux = memo((props: TaskPropsType) => {
 
     const dispatch = useDispatch();
 
@@ -31,10 +31,10 @@ export const TaskWithRedux = (props: TaskPropsType) => {
         // props.changeTaskStatus(taskID, isDone)
     }
 
-    const editTaskTitle = (todolistID: string, taskID: string, value: string) => {
+    const editTaskTitle = useCallback((todolistID: string, taskID: string, value: string) => {
         dispatch(editTaskTitleAC(todolistID, taskID, value));
         // props.editTaskTitle(taskID, value);
-    }
+    }, [dispatch]);
 
     return (
         <Stack direction={'column'} spacing={1} key={props.task.id}>
@@ -56,4 +56,4 @@ export const TaskWithRedux = (props: TaskPropsType) => {
             </div>
         </Stack>
     )
-};
+});

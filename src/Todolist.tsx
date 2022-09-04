@@ -84,9 +84,9 @@ export const Todolist = memo((props: PropsType) => {
     // const onCheckboxHandler = (taskID: string, isDone: boolean) => {
     //     props.changeTaskStatus(props.todolistID, taskID, isDone)
     // }
-    const editTodolistTitle = (value: string) => {
+    const editTodolistTitle = useCallback((value: string) => {
         props.editTodolistTitle(props.todolistID, value);
-    }
+    }, [props.editTodolistTitle, props.todolistID]);
     // const editTaskTitle = (taskID: string, value: string) => {
     //     props.editTaskTitle(props.todolistID, taskID, value);
     // }
