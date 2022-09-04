@@ -47,7 +47,7 @@ enum Filter {
 }
 
 export const Todolist = (props: PropsType) => {
-
+    
     let [inputValue, setInputValue] = useState('');
     let [error, setError] = useState<string | null>(null);
 
@@ -119,7 +119,7 @@ export const Todolist = (props: PropsType) => {
             <div>
                 {props.tasks.map((task, index) => {
                     return (
-                        <Stack direction={'column'} spacing={1}>
+                        <Stack direction={'column'} spacing={1} key={task.id}>
                             <div key={index} className={task.isDone ? styles.isDone : ''} style={{listStyle: 'none'}}>
                                 <div className={styles.btn}>
                                     <CheckboxComponent checked={task.isDone}
